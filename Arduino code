@@ -1,0 +1,52 @@
+# Automatic Street Light using LDR and Arduino
+
+This project demonstrates an **Automatic Street Light System** using an **LDR sensor** (Light Dependent Resistor). The system automatically switches **street lights ON** in the absence of sunlight (darkness) and switches them **OFF** when there is sufficient daylight, thereby saving energy.
+
+---
+
+## 📌 Components Used
+- Arduino UNO (or any compatible board)  
+- LDR Sensor  
+- 10kΩ Resistor  
+- LED (as street light)  
+- Jumper wires  
+- Breadboard / PCB  
+
+---
+
+## ⚡ Working Principle
+- The **LDR sensor** detects the ambient light intensity.  
+- When light intensity is **low (night)** → Arduino turns **LED ON** (street light ON).  
+- When light intensity is **high (day)** → Arduino turns **LED OFF** (street light OFF).  
+
+This makes the system fully automatic and efficient.
+
+---
+
+## 🔧 Circuit Diagram
+*(Add your circuit diagram image here – e.g., `circuit.png`)*  
+
+---
+
+## 💻 Arduino Code
+```cpp
+int ldrPin = A0;    // LDR connected to analog pin A0
+int ledPin = 9;     // LED connected to digital pin 9
+int ldrValue = 0;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  ldrValue = analogRead(ldrPin);   // read LDR value
+  Serial.println(ldrValue);        // print value for debugging
+  
+  if (ldrValue < 500) {            // threshold for darkness
+    digitalWrite(ledPin, HIGH);    // turn ON street light
+  } else {
+    digitalWrite(ledPin, LOW);     // turn OFF street light
+  }
+  delay(500);
+}
